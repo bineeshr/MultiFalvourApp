@@ -1,0 +1,42 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.example.analytics'
+    compileSdk 33
+
+    flavorDimensions "country"
+    productFlavors {
+        register("china")
+        register("india")
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main { java.srcDirs = ['src/main/java'] }
+        test.java.srcDirs += ['src/test/java']
+        india.java.srcDirs += ['src/india/kotlin']
+        china.java.srcDirs += ['src/china/kotlin']
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    indiaImplementation(platform("com.google.firebase:firebase-bom:32.1.1"))
+    indiaImplementation("com.google.firebase:firebase-analytics-ktx")
+}
